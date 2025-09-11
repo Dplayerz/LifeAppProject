@@ -1,4 +1,3 @@
-/*
 import { Ionicons } from '@expo/vector-icons';
 import { Camera, CameraType, CameraView } from 'expo-camera';
 import { useFocusEffect, useNavigation } from 'expo-router';
@@ -12,7 +11,6 @@ export default function CameraScreen() {
   const [flash, setFlash] = useState<'on' | 'off'>('off');
   const navigation = useNavigation();
 
-  // Hide tab bar when camera is focused
   useFocusEffect(
     React.useCallback(() => {
       navigation.getParent()?.setOptions({ tabBarStyle: { display: 'none' } });
@@ -44,41 +42,40 @@ export default function CameraScreen() {
         facing={type}
         flash={flash}
         ratio="16:9"
+      />
+      {/* Controls are absolutely positioned over CameraView */}
+      <TouchableOpacity
+        style={{ position: 'absolute', top: 50, left: 20, zIndex: 10, backgroundColor: '#eee', borderRadius: 20, padding: 10 }}
+        onPress={() => navigation.goBack()}
       >
-        
-        <TouchableOpacity
-          style={{ position: 'absolute', top: 50, left: 20, zIndex: 10, backgroundColor: '#eee', borderRadius: 20, padding: 10 }}
-          onPress={() => navigation.goBack()}
-        >
-          <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Return</Text>
+        <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Return</Text>
+      </TouchableOpacity>
+      <View style={styles.topControls}>
+        <TouchableOpacity onPress={() => setFlash(flash === 'off' ? 'on' : 'off')}>
+          <Ionicons name={flash === 'on' ? 'flash' : 'flash-off'} size={30} color="white" />
         </TouchableOpacity>
-        <View style={styles.topControls}>
-          <TouchableOpacity onPress={() => setFlash(flash === 'off' ? 'on' : 'off')}>
-            <Ionicons name={flash === 'on' ? 'flash' : 'flash-off'} size={30} color="white" />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => setType(type === 'back' ? 'front' : 'back')}>
-            <Ionicons name="camera-reverse" size={30} color="white" />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.bottomControls}>
-          <TouchableOpacity>
-          
-            <Image source={require('@/assets/images/partial-react-logo.png')} style={styles.thumbnail} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.shutterButton}
-            onPress={async () => {
-              if (cameraRef.current) {
-                // @ts-ignore
-                const photo = await cameraRef.current.takePictureAsync();
-                console.log(photo.uri);
-              }
-            }}
-          >
-            <View style={styles.shutterInner} />
-          </TouchableOpacity>
-          <View style={{ width: 50 }} />
-        </View>
-      </CameraView>
+        <TouchableOpacity onPress={() => setType(type === 'back' ? 'front' : 'back')}>
+          <Ionicons name="camera-reverse" size={30} color="white" />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.bottomControls}>
+        <TouchableOpacity>
+          {/* Replace with your last photo thumbnail */}
+          <Image source={require('@/assets/images/partial-react-logo.png')} style={styles.thumbnail} />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.shutterButton}
+          onPress={async () => {
+            if (cameraRef.current) {
+              // @ts-ignore
+              const photo = await cameraRef.current.takePictureAsync();
+              console.log(photo.uri);
+            }
+          }}
+        >
+          <View style={styles.shutterInner} />
+        </TouchableOpacity>
+        <View style={{ width: 50 }} />
+      </View>
     </View>
   );
 }
@@ -102,4 +99,3 @@ const styles = StyleSheet.create({
     width: 50, height: 50, borderRadius: 10, backgroundColor: '#222',
   },
 });
-*/

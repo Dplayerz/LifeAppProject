@@ -112,10 +112,10 @@ export default function BadgesScreen() {
 		extrapolate: 'clamp',
 	});
 
-	return (
-		   <View style={styles.container}>
+		return (
+			<View style={styles.container}>
 			   {/* Parallax Image Header (fixed) */}
-			   <Animated.View style={[styles.imageHeaderContainer, { height: imageHeight, transform: [{ translateY: scrollY.interpolate({ inputRange: [0, 200], outputRange: [0, -80], extrapolate: 'clamp' }) }] }]}> 
+			 <Animated.View style={[styles.imageHeaderContainer, { height: imageHeight, transform: [{ translateY: scrollY.interpolate({ inputRange: [0, 200], outputRange: [0, -80], extrapolate: 'clamp' }) }] }]}> 
 				   <Image
 					   source={{ uri: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80' }}
 					   style={[styles.imageHeader, { width: windowWidth, height: '100%' }]}
