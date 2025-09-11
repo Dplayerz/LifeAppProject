@@ -94,10 +94,14 @@ type BadgeTemplateProps = {
 export const BadgeTemplate: React.FC<BadgeTemplateProps> = ({ image, title, progress, onPress }) => {
 	return (
 		<TouchableOpacity style={styles.container} activeOpacity={0.8} onPress={onPress}>
-			<Image source={typeof image === 'string' ? { uri: image } : image} style={styles.badgeImage} />
-			<Text style={styles.title}>{title}</Text>
-			<View style={styles.progressBarContainer}>
-				<View style={[styles.progressBar, { width: `${Math.max(0, Math.min(1, progress)) * 100}%` }]} />
+			<View style={styles.row}>
+				<Image source={typeof image === 'string' ? { uri: image } : image} style={styles.badgeImage} />
+				<View style={styles.infoContainer}>
+					<Text style={styles.title}>{title}</Text>
+					<View style={styles.progressBarContainer}>
+						<View style={[styles.progressBar, { width: `${Math.max(0, Math.min(1, progress)) * 100}%` }]} />
+					</View>
+				</View>
 			</View>
 		</TouchableOpacity>
 	);
@@ -105,7 +109,6 @@ export const BadgeTemplate: React.FC<BadgeTemplateProps> = ({ image, title, prog
 
 const styles = StyleSheet.create({
 	container: {
-		alignItems: 'center',
 		marginVertical: 16,
 		padding: 16,
 		backgroundColor: '#fff',
@@ -116,11 +119,19 @@ const styles = StyleSheet.create({
 		shadowRadius: 6,
 		elevation: 3,
 	},
+	row: {
+		flexDirection: 'row',
+		alignItems: 'center',
+	},
 	badgeImage: {
 		width: 64,
 		height: 64,
 		borderRadius: 32,
-		marginBottom: 8,
+		marginRight: 16,
+	},
+	infoContainer: {
+		flex: 1,
+		justifyContent: 'center',
 	},
 	title: {
 		fontSize: 18,

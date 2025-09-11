@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
 		   top: 0,
 		   left: 0,
 		   width: '100%',
-		   height: 380,
+		   height: "auto",
 		   zIndex: 0,
 	   },
        scrollOverlapCard: {
@@ -150,20 +150,19 @@ export default function BadgesScreen() {
 							   <Text style={[styles.buttonText, { color: currentSet === 2 ? '#222' : '#aaa' }]}>Water</Text>
 						   </TouchableOpacity>
 					   </View>
-															 <Animated.View
-																	 style={{
-																		 height: expanded
-																			 ? cardAnim.interpolate({
-																					 inputRange: [0, 1],
-																					 outputRange: [350, Dimensions.get('window').height * CARD_EXPANDED_HEIGHT],
-																				 })
-																			 : 350,
-																		 overflow: 'hidden',
-																	 }}
-															 >
+																			 <Animated.View
+																					 style={{
+																						 height: expanded
+																							 ? cardAnim.interpolate({
+																									 inputRange: [0, 1],
+																									 outputRange: [600, Dimensions.get('window').height * CARD_EXPANDED_HEIGHT],
+																								 })
+																							 : 'auto',
+																						 overflow: 'hidden',
+																					 }}
+																			 >
 											 {!expanded ? (
 												 badgeSets[currentSet]
-													 .slice()
 													 .sort((a, b) => b.progress - a.progress)
 													 .map((badge, idx) => (
 														 <BadgeTemplate
@@ -208,7 +207,7 @@ export default function BadgesScreen() {
 														 <Text style={{ fontWeight: 'bold', color: '#333' }}>Close</Text>
 													 </TouchableOpacity>
 												 </View>
-											 )}
+											 )  }
 										 </Animated.View>
 				   </View>
 		       </Animated.ScrollView>
