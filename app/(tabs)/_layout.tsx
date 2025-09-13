@@ -18,6 +18,7 @@ export default function TabLayout() {
   return (
     <View style={{ flex: 1 }}>
       <Tabs
+        initialRouteName="explore"
         screenOptions={{
           tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
           headerShown: false,
@@ -34,6 +35,13 @@ export default function TabLayout() {
           options={{
             title: 'Badges',
             tabBarIcon: ({ color }) => <IconSymbol size={28} name="flame.fill" color={color} />,
+          }}
+        />
+        <Tabs.Screen
+          name="explore"
+          options={{
+            title: 'explore',
+            tabBarIcon: ({ color }) => <IconSymbol size={28} name="map.fill" color={color} />,
           }}
         />
       </Tabs>

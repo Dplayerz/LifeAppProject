@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "LifeAppProject",
+    "displayName": "LifeAppProject",
     "slug": "LifeAppProject",
     "version": "1.0.0",
     "orientation": "portrait",

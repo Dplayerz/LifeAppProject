@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Camera, CameraType, CameraView } from 'expo-camera';
-import { useFocusEffect, useNavigation } from 'expo-router';
+import { router, useFocusEffect, useNavigation } from 'expo-router';
 import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
@@ -68,6 +68,8 @@ export default function CameraScreen() {
               // @ts-ignore
               const photo = await cameraRef.current.takePictureAsync();
               console.log(photo.uri);
+              // After taking the photo
+              router.push({ pathname: '/Review', params: { uri: photo.uri } });
             }
           }}
         >

@@ -1,14 +1,12 @@
-
 import { useNavigation } from 'expo-router';
 import React, { useRef } from 'react';
 import { Animated, Image, NativeScrollEvent, NativeSyntheticEvent, StyleSheet, Text, View } from 'react-native';
 import { useNavVisibility } from '../navBarContex';
 
-
 // Mock user data (14 profiles)
 const users = [
   { id: '1', name: 'Alice', image: 'https://randomuser.me/api/portraits/women/44.jpg' },
-  { id: '2', name: 'Bob', image: 'https://randomuser.me/api/portraits/men/32.jpg' },
+  { id: '2', name: 'American Kingfisher', image: 'https://randomuser.me/api/portraits/men/32.jpg' },
   { id: '3', name: 'Carol', image: 'https://randomuser.me/api/portraits/women/68.jpg' },
   { id: '4', name: 'David', image: 'https://randomuser.me/api/portraits/men/76.jpg' },
   { id: '5', name: 'Eve', image: 'https://randomuser.me/api/portraits/men/45.jpg' },
@@ -22,8 +20,6 @@ const users = [
   { id: '13', name: 'Mike', image: 'https://randomuser.me/api/portraits/men/11.jpg' },
   { id: '14', name: 'Nina', image: 'https://randomuser.me/api/portraits/women/22.jpg' },
 ];
-
-// (styles moved above, duplicate removed)
 
 export default function ExploreScreen() {
   const navigation = useNavigation();
@@ -46,7 +42,7 @@ export default function ExploreScreen() {
           if (!scrollingDown.current) {
             navigation.setOptions({ tabBarStyle: { display: 'none' } });
             scrollingDown.current = true;
-             setVisible(false);
+            setVisible(false);
           }
         }
         lastOffset.current = currentOffset;
@@ -59,15 +55,13 @@ export default function ExploreScreen() {
       <Animated.FlatList
         data={users}
         keyExtractor={item => item.id}
-        numColumns={2}
-        columnWrapperStyle={{ justifyContent: 'space-between' }}
         ListHeaderComponent={<Text style={styles.title}>Explore</Text>}
         contentContainerStyle={{ paddingBottom: 32, paddingTop: 16 }}
         renderItem={({ item }) => (
-          <View style={styles.gridItem}>
-            <Image source={{ uri: item.image }} style={styles.squarePhoto} />
-            <View style={styles.nameOverlay}>
-              <Text style={styles.nameText}>{item.name}</Text>
+          <View style={styles.postCard}>
+            <Image source={{ uri: item.image }} style={styles.postImage} />
+            <View style={styles.postInfo}>
+              <Text style={styles.userName}>{item.name}</Text>
             </View>
           </View>
         )}
@@ -83,7 +77,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingHorizontal: 12,
+    paddingHorizontal: 0,
   },
   title: {
     fontSize: 24,
@@ -93,40 +87,31 @@ const styles = StyleSheet.create({
     marginBottom: 32,
     color: '#222',
   },
-  gridItem: {
-    flex: 1,
-    aspectRatio: 1,
-    margin: 6,
+  postCard: {
+    backgroundColor: '#fff',
     borderRadius: 16,
-    overflow: 'hidden',
-    backgroundColor: '#eee',
-    elevation: 2,
+    marginBottom: 24,
+    marginHorizontal: 4,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.08,
     shadowRadius: 4,
+    elevation: 2,
+    overflow: 'hidden',
   },
-  squarePhoto: {
+  postImage: {
     width: '100%',
-    height: '100%',
-    resizeMode: 'cover',
+    aspectRatio: 1,
+    backgroundColor: '#eee',
   },
-  nameOverlay: {
-    position: 'absolute',
-    left: 0,
-    bottom: 0,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderBottomLeftRadius: 16,
-    borderTopRightRadius: 8,
-    maxWidth: '80%',
+  postInfo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 12,
   },
-  nameText: {
-    color: '#fff',
-    fontSize: 14,
+  userName: {
     fontWeight: 'bold',
+    fontSize: 16,
+    color: '#222',
   },
 });
-
-
