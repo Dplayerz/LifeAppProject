@@ -4,6 +4,7 @@ import { useNavigation } from 'expo-router';
 import React, { useRef, useState } from 'react';
 import { Animated, Dimensions, Easing, Image, NativeScrollEvent, NativeSyntheticEvent, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { BadgeTemplate, badgesSet1, badgesSet2, badgesSet3 } from '../../components/badgesTemplate';
+import { useNavVisibility } from '../navBarContex';
 const badgeSets = [badgesSet1, badgesSet2, badgesSet3];
 
 const CARD_EXPANDED_HEIGHT = 0.92; // percent of screen height
@@ -85,6 +86,7 @@ export default function BadgesScreen() {
 	const lastOffset = useRef(0);
 	const scrollingDown = useRef(false);
 	const scrollY = useRef(new Animated.Value(0)).current;
+	const { setVisible } = useNavVisibility();
 
 	const handleScroll = Animated.event(
 		[{ nativeEvent: { contentOffset: { y: scrollY } } }],
@@ -95,10 +97,12 @@ export default function BadgesScreen() {
 				if (currentOffset <= 0) {
 					navigation.setOptions({ tabBarStyle: undefined });
 					scrollingDown.current = false;
+					setVisible(true);
 				} else {
 					if (!scrollingDown.current) {
 						navigation.setOptions({ tabBarStyle: { display: 'none' } });
 						scrollingDown.current = true;
+						setVisible(false);
 					}
 				}
 				lastOffset.current = currentOffset;

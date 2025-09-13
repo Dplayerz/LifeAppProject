@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Camera, CameraType, CameraView } from 'expo-camera';
 import { useFocusEffect, useNavigation } from 'expo-router';
 import React, { useEffect, useRef, useState } from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function CameraScreen() {
   const cameraRef = useRef(null);
@@ -51,18 +51,17 @@ export default function CameraScreen() {
         <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Return</Text>
       </TouchableOpacity>
       <View style={styles.topControls}>
-        <TouchableOpacity onPress={() => setFlash(flash === 'off' ? 'on' : 'off')}>
-          <Ionicons name={flash === 'on' ? 'flash' : 'flash-off'} size={30} color="white" />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setType(type === 'back' ? 'front' : 'back')}>
-          <Ionicons name="camera-reverse" size={30} color="white" />
-        </TouchableOpacity>
+        <View style={{ marginLeft: 'auto', alignItems: 'flex-end' }}>
+          <TouchableOpacity onPress={() => setFlash(flash === 'off' ? 'on' : 'off')} style={{ marginBottom: 16 }}>
+            <Ionicons name={flash === 'on' ? 'flash' : 'flash-off'} size={30} color="white" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setType(type === 'back' ? 'front' : 'back')}>
+            <Ionicons name="camera-reverse" size={30} color="white" />
+          </TouchableOpacity>
+        </View>
       </View>
       <View style={styles.bottomControls}>
-        <TouchableOpacity>
-          {/* Replace with your last photo thumbnail */}
-          <Image source={require('@/assets/images/partial-react-logo.png')} style={styles.thumbnail} />
-        </TouchableOpacity>
+        <View style={{ width: 50 }} />
         <TouchableOpacity style={styles.shutterButton}
           onPress={async () => {
             if (cameraRef.current) {

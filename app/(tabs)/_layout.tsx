@@ -6,9 +6,15 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 import { Tabs, router } from 'expo-router';
 import React from 'react';
 import { Platform, TouchableOpacity, View } from 'react-native';
+import { useNavVisibility } from '../navBarContex';
+
+
+
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const { visible } = useNavVisibility();
+
   return (
     <View style={{ flex: 1 }}>
       <Tabs
@@ -37,7 +43,7 @@ export default function TabLayout() {
           position: 'absolute',
           bottom: 32,
           alignSelf: 'center',
-          backgroundColor: '#fff',
+          backgroundColor: '#ffffffff',
           borderRadius: 36,
           width: 72,
           height: 72,
@@ -48,11 +54,12 @@ export default function TabLayout() {
           shadowOffset: { width: 0, height: 2 },
           shadowOpacity: 0.2,
           shadowRadius: 4,
+          display: visible ? undefined : 'none',
         }}
         onPress={() => router.push('/CameraScreen')}
         activeOpacity={0.8}
       >
-        <IconSymbol size={36} name="camera.fill" color={Colors[colorScheme ?? 'light'].tint} />
+        <IconSymbol size={36} name="camera.fill" color="#000" />
       </TouchableOpacity>
     </View>
   );
