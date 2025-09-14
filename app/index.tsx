@@ -1,34 +1,50 @@
+import * as Google from "expo-auth-session/providers/google";
 import { router } from "expo-router";
-import { signInWithEmailAndPassword, User } from "firebase/auth";
+import * as WebBrowser from "expo-web-browser";
+import { GoogleAuthProvider, signInWithCredential, User } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import {
-  Alert,
-  StyleSheet,
+  Alert, ImageBackground, StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  View,
-} from "react-native";
-import { useGoogleAuth } from "./firebase/authConfig";
+  View
+} from 'react-native';
 import { auth } from "./firebase/firebaseConfig";
+
+WebBrowser.maybeCompleteAuthSession();
 
 export default function SignIn() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const { request, promptAsync } = useGoogleAuth();
 
-  const handleSignIn = async () => {
-    if (!email || !password) {
-      Alert.alert("Error", "Please enter both email and password.");
-      return;
-    }
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      router.replace("/(tabs)/Badges");
-    } catch (err: any) {
-      Alert.alert("Login failed", err.message);
-    }
+  // 🔑 Replace with your Google OAuth client IDs from Google Cloud Console
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    iosClientId: "562091604190-7u85eltedn2hergcj15tmshsoebcvam7.apps.googleusercontent.com",
+    androidClientId: "YOUR_ANDROID_CLIENT_ID.apps.googleusercontent.com",
+    
+  });
+
+  const handleSignIn = () => {
+    router.replace("/(tabs)/Badges");
   };
+
+  // 👇 Handle Google Sign-in response
+  useEffect(() => {
+    if (response?.type === "success") {
+      const { authentication } = response;
+      if (authentication?.idToken) {
+        const credential = GoogleAuthProvider.credential(authentication.idToken);
+        signInWithCredential(auth, credential)
+          .then(() => {
+            router.replace("/(tabs)/Badges");
+          })
+          .catch((err) => {
+            Alert.alert("Google Login failed", err.message);
+          });
+      }
+    }
+  }, [response]);
 
   // If already logged in, navigate
   useEffect(() => {
@@ -41,47 +57,58 @@ export default function SignIn() {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Sign In</Text>
+    <ImageBackground
+      source={require('../assets/images/LoginBackground.jpg')}
+      style={styles.background}
+      resizeMode="cover"
+    >
+      <View style={styles.container}>
+        <Text style={styles.title}>Sign In</Text>
 
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        autoCapitalize="none"
-        keyboardType="email-address"
-      />
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          value={email}
+          onChangeText={setEmail}
+          autoCapitalize="none"
+          keyboardType="email-address"
+        />
 
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
 
-      <TouchableOpacity style={styles.button} onPress={handleSignIn}>
-        <Text style={styles.buttonText}>Sign In</Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={handleSignIn}>
+          <Text style={styles.buttonText}>Sign In</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        style={[styles.button, { backgroundColor: "#DB4437" }]}
-        disabled={!request}
-        onPress={() => promptAsync()}
-      >
-        <Text style={styles.buttonText}>Sign in with Google</Text>
-      </TouchableOpacity>
-    </View>
+        <TouchableOpacity
+          style={[styles.button, { backgroundColor: "#DB4437" }]}
+          disabled={!request}
+          onPress={() => promptAsync()}
+        >
+          <Text style={styles.buttonText}>Sign in with Google</Text>
+        </TouchableOpacity>
+      </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+  },
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fff",
+    backgroundColor: "transparent",
     padding: 24,
   },
   title: {

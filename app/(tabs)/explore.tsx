@@ -1,6 +1,7 @@
 import { useNavigation } from 'expo-router';
 import React, { useRef } from 'react';
-import { Animated, Image, NativeScrollEvent, NativeSyntheticEvent, StyleSheet, Text, View } from 'react-native';
+import { Animated, NativeScrollEvent, NativeSyntheticEvent, Text } from 'react-native';
+import ExplorePageTemplate from '../../components/explorePageTemplate';
 import { useNavVisibility } from '../navBarContex';
 
 // Mock user data (14 profiles)
@@ -51,67 +52,11 @@ export default function ExploreScreen() {
   );
 
   return (
-    <View style={styles.container}>
-      <Animated.FlatList
-        data={users}
-        keyExtractor={item => item.id}
-        ListHeaderComponent={<Text style={styles.title}>Explore</Text>}
-        contentContainerStyle={{ paddingBottom: 32, paddingTop: 16 }}
-        renderItem={({ item }) => (
-          <View style={styles.postCard}>
-            <Image source={{ uri: item.image }} style={styles.postImage} />
-            <View style={styles.postInfo}>
-              <Text style={styles.userName}>{item.name}</Text>
-            </View>
-          </View>
-        )}
-        showsVerticalScrollIndicator={false}
-        onScroll={handleScroll}
-        scrollEventThrottle={16}
-      />
-    </View>
+    <ExplorePageTemplate
+      users={users}
+      onScroll={handleScroll}
+      ListHeaderComponent={<Text style={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center', marginTop: 64, marginBottom: 32, color: '#222' }}>Explore</Text>}
+    />
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    paddingHorizontal: 0,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginTop: 64,
-    marginBottom: 32,
-    color: '#222',
-  },
-  postCard: {
-    backgroundColor: '#fff',
-    borderRadius: 16,
-    marginBottom: 24,
-    marginHorizontal: 4,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
-    shadowRadius: 4,
-    elevation: 2,
-    overflow: 'hidden',
-  },
-  postImage: {
-    width: '100%',
-    aspectRatio: 1,
-    backgroundColor: '#eee',
-  },
-  postInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 12,
-  },
-  userName: {
-    fontWeight: 'bold',
-    fontSize: 16,
-    color: '#222',
-  },
-});

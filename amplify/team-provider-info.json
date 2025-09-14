@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-lifeappproject-dev-5f4ae-authRole",
+      "UnauthRoleArn": "arn:aws:iam::961341538212:role/amplify-lifeappproject-dev-5f4ae-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::961341538212:role/amplify-lifeappproject-dev-5f4ae-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-lifeappproject-dev-5f4ae-deployment",
+      "UnauthRoleName": "amplify-lifeappproject-dev-5f4ae-unauthRole",
+      "StackName": "amplify-lifeappproject-dev-5f4ae",
+      "StackId": "arn:aws:cloudformation:us-east-1:961341538212:stack/amplify-lifeappproject-dev-5f4ae/406cd690-91b8-11f0-9e0f-12ca6f94ed53",
+      "AmplifyAppId": "d3c0pm534dj7pl"
+    },
+    "categories": {
+      "api": {
+        "lifeappproject": {}
+      }
+    }
+  }
+}
