@@ -174,6 +174,7 @@ export default function BadgesScreen() {
 															 image={badge.image}
 															 title={badge.title}
 															 progress={badge.progress}
+															 total={badge.total}
 															 onPress={() => {
 																 setSelectedBadge(badge);
 																 setExpanded(true);

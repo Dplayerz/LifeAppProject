@@ -2,6 +2,8 @@ import { useNavigation } from 'expo-router';
 import React, { useRef } from 'react';
 import { Animated, NativeScrollEvent, NativeSyntheticEvent, Text } from 'react-native';
 import ExplorePageTemplate from '../../components/explorePageTemplate';
+
+import { auth } from "../../src/firebase/firebaseConfig";
 import { useNavVisibility } from '../navBarContex';
 
 // Mock user data (14 profiles)
@@ -54,9 +56,9 @@ export default function ExploreScreen() {
   return (
     <ExplorePageTemplate
       users={users}
+      currentUserId={auth.currentUser?.uid ?? ''}
       onScroll={handleScroll}
-      ListHeaderComponent={<Text style={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center', marginTop: 64, marginBottom: 32, color: '#222' }}>Explore</Text>}
-    />
+      ListHeaderComponent={<Text style={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center', marginTop: 64, marginBottom: 32, color: '#222' }}>Explore</Text>} />
   );
 }
 

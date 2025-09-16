@@ -1,64 +1,47 @@
-import * as Google from "expo-auth-session/providers/google";
 import { router } from "expo-router";
-import * as WebBrowser from "expo-web-browser";
-import { GoogleAuthProvider, signInWithCredential, User } from "firebase/auth";
-import React, { useEffect, useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import React, { useState } from "react";
 import {
-  Alert, ImageBackground, StyleSheet,
+  Alert,
+  ImageBackground,
+  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  View
-} from 'react-native';
-import { auth } from "./firebase/firebaseConfig";
-
-WebBrowser.maybeCompleteAuthSession();
+  View,
+} from "react-native";
+import { auth } from "../src/firebase/firebaseConfig";
 
 export default function SignIn() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [loading, setLoading] = useState(false);
 
-  // 🔑 Replace with your Google OAuth client IDs from Google Cloud Console
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    iosClientId: "562091604190-7u85eltedn2hergcj15tmshsoebcvam7.apps.googleusercontent.com",
-    androidClientId: "YOUR_ANDROID_CLIENT_ID.apps.googleusercontent.com",
-    
-  });
-
-  const handleSignIn = () => {
-    router.replace("/(tabs)/Badges");
-  };
-
-  // 👇 Handle Google Sign-in response
-  useEffect(() => {
-    if (response?.type === "success") {
-      const { authentication } = response;
-      if (authentication?.idToken) {
-        const credential = GoogleAuthProvider.credential(authentication.idToken);
-        signInWithCredential(auth, credential)
-          .then(() => {
-            router.replace("/(tabs)/Badges");
-          })
-          .catch((err) => {
-            Alert.alert("Google Login failed", err.message);
-          });
-      }
+  const handleSignIn = async () => {
+    if (!email || !password) {
+      Alert.alert("Error", "Please enter email and password");
+      return;
     }
-  }, [response]);
 
-  // If already logged in, navigate
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user: User | null) => {
-      if (user) {
-        router.replace("/(tabs)/Badges");
-      }
-    });
-    return unsubscribe;
-  }, []);
+    setLoading(true);
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const uid = userCredential.user.uid;
+      console.log("Logged in user ID:", uid);
+
+      // Pass the user ID to your Explore page via router params or context
+      router.replace("/(tabs)/Badges");
+    } catch (error: any) {
+      console.error("Login error:", error);
+      Alert.alert("Login Failed", error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <ImageBackground
-      source={require('../assets/images/LoginBackground.jpg')}
+      source={require("../assets/images/LoginBackground.jpg")}
       style={styles.background}
       resizeMode="cover"
     >
@@ -82,16 +65,12 @@ export default function SignIn() {
           secureTextEntry
         />
 
-        <TouchableOpacity style={styles.button} onPress={handleSignIn}>
-          <Text style={styles.buttonText}>Sign In</Text>
-        </TouchableOpacity>
-
         <TouchableOpacity
-          style={[styles.button, { backgroundColor: "#DB4437" }]}
-          disabled={!request}
-          onPress={() => promptAsync()}
+          style={[styles.button, loading && { opacity: 0.6 }]}
+          onPress={handleSignIn}
+          disabled={loading}
         >
-          <Text style={styles.buttonText}>Sign in with Google</Text>
+          <Text style={styles.buttonText}>{loading ? "Signing In..." : "Sign In"}</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>
@@ -99,24 +78,9 @@ export default function SignIn() {
 }
 
 const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
-  },
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "transparent",
-    padding: 24,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: "bold",
-    marginBottom: 32,
-    color: "#222",
-  },
+  background: { flex: 1, width: "100%", height: "100%" },
+  container: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "transparent", padding: 24 },
+  title: { fontSize: 28, fontWeight: "bold", marginBottom: 32, color: "#222" },
   input: {
     width: "100%",
     maxWidth: 340,
@@ -129,19 +93,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     backgroundColor: "#f9f9f9",
   },
-  button: {
-    width: "100%",
-    maxWidth: 340,
-    height: 48,
-    backgroundColor: "#007AFF",
-    borderRadius: 8,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 8,
-  },
-  buttonText: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
+  button: { width: "100%", maxWidth: 340, height: 48, backgroundColor: "#007AFF", borderRadius: 8, alignItems: "center", justifyContent: "center", marginTop: 8 },
+  buttonText: { color: "#fff", fontSize: 18, fontWeight: "bold" },
 });

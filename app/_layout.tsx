@@ -5,12 +5,9 @@ import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
-import { Amplify } from 'aws-amplify';
-import { awsConfig } from '../amplify/amplifyConfig';
+
 import { NavVisibilityProvider } from './navBarContex';
 
-
-Amplify.configure(awsConfig);
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
