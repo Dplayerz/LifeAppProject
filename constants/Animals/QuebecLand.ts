@@ -1,0 +1,26 @@
+import { Choice } from "../Choice";
+
+export const QuebecLand: Choice[] = [
+  { id: "Cat", label: "Cat", destination: "Quebec/Land" },
+  { id: "Dog", label: "Dog", destination: "Quebec/Land" },
+  { id: "Hare", label: "Hare", destination: "Quebec/Land" },
+  { id: "beaver", label: "beaver", destination: "Quebec/Land" },
+  { id: "moose", label: "moose", destination: "Quebec/Land" },
+  { id: "black bear", label: "black bear", destination: "Quebec/Land" },
+  { id: "white tailed deer", label: "white tailed deer", destination: "Quebec/Land" },
+  { id: "coyote", label: "coyote", destination: "Quebec/Land" },
+  { id: "red fox", label: "red fox", destination: "Quebec/Land" },
+  { id: "bobcat", label: "bobcat", destination: "Quebec/Land" },
+  { id: "lynx", label: "lynx", destination: "Quebec/Land" },
+  { id: "raccoon", label: "raccoon", destination: "Quebec/Land" },
+  { id: "porcupine", label: "porcupine", destination: "Quebec/Land" },
+  { id: "skunk", label: "skunk", destination: "Quebec/Land" },
+  { id: "groundhog", label: "groundhog", destination: "Quebec/Land" },
+  { id: "squirrel", label: "squirrel", destination: "Quebec/Land" },
+  { id: "muskrat", label: "muskrat", destination: "Quebec/Land" },
+  { id: "marten", label: "marten", destination: "Quebec/Land" },
+  { id: "mink", label: "mink", destination: "Quebec/Land" },
+  { id: "moose", label: "moose", destination: "Quebec/Land" },
+  { id: "caribou", label: "caribou", destination: "Quebec/Land" },
+  { id: "snowshoe hare", label: "snowshoe hare", destination: "Quebec/Land" },
+]
