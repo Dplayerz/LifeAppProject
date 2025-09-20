@@ -6,6 +6,7 @@ import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 
+import { UserProvider } from '@/hooks/userContex';
 import { NavVisibilityProvider } from './navBarContex';
 
 
@@ -21,6 +22,7 @@ export default function RootLayout() {
   }
 
   return (
+    <UserProvider>
     <NavVisibilityProvider>
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
@@ -40,5 +42,6 @@ export default function RootLayout() {
       <StatusBar style="dark" />
     </ThemeProvider>
     </NavVisibilityProvider>
+    </UserProvider>
   );
 }

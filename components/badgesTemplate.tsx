@@ -1,3 +1,7 @@
+import React from 'react';
+import { GestureResponderEvent, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
+
 export const badgesSet1 = [
 	{
 		image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
@@ -96,8 +100,7 @@ export const badgesSet3 = [
 		total: 19,
 	},
 ];
-import React from 'react';
-import { GestureResponderEvent, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
 
 type BadgeTemplateProps = {
 	image: string; // image URL or local require
