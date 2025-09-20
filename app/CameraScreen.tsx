@@ -10,6 +10,7 @@ export default function CameraScreen() {
   const [type, setType] = useState<CameraType>('back');
   const [flash, setFlash] = useState<'on' | 'off'>('off');
   const navigation = useNavigation();
+  const [isCameraOpen, setIsCameraOpen] = useState(true);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -70,6 +71,8 @@ export default function CameraScreen() {
               console.log(photo.uri);
               // After taking the photo
               router.push({ pathname: '/Review', params: { uri: photo.uri } });
+              // Close camera after taking picture
+              navigation.goBack();
             }
           }}
         >

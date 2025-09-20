@@ -30,11 +30,26 @@ export default function TabLayout() {
           }),
         }}
       >
+
+        <Tabs.Screen
+          name="parameters"
+          options={{
+            title: 'Parameters',
+            tabBarIcon: ({ color }) => <IconSymbol size={28} name="gear" color={color} />,
+          }}
+        />
         <Tabs.Screen
           name="Badges"
           options={{
             title: 'Badges',
             tabBarIcon: ({ color }) => <IconSymbol size={28} name="flame.fill" color={color} />,
+          }}
+        />
+        <Tabs.Screen
+          name="cameraMock"
+          options={{
+            title: 'hidden',
+            tabBarIcon: ({ color }) => <IconSymbol size={28} name="camera.fill" color={color} />,
           }}
         />
         <Tabs.Screen

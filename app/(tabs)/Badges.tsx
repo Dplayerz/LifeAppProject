@@ -122,13 +122,13 @@ export default function BadgesScreen() {
 			 <Animated.View style={[styles.imageHeaderContainer, { height: imageHeight, transform: [{ translateY: scrollY.interpolate({ inputRange: [0, 200], outputRange: [0, -80], extrapolate: 'clamp' }) }] }]}> 
 				   <Image
 					   source={{ uri: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80' }}
-					   style={[styles.imageHeader, { width: windowWidth, height: '100%' }]}
+					   style={[styles.imageHeader, { width: windowWidth, height: '140%' }]}
 					   resizeMode="cover"
 				   />
 			   </Animated.View>
 			   <Animated.ScrollView
 				   style={{ flex: 1, zIndex: 1 }}
-				   contentContainerStyle={{ paddingTop: 400, paddingBottom: 40 }}
+				   contentContainerStyle={{ paddingTop: 500, paddingBottom: 40 }}
 				   showsVerticalScrollIndicator={false}
 				   onScroll={handleScroll}
 				   scrollEventThrottle={16}

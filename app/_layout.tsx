@@ -32,6 +32,10 @@ export default function RootLayout() {
         />
         <Stack.Screen name="Review" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
+        <Stack.Screen
+          name="(modals)/CreateAccount"
+          options={{ headerShown: false, presentation: 'modal' }}
+        />
       </Stack>
       <StatusBar style="dark" />
     </ThemeProvider>

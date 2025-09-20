@@ -1,6 +1,6 @@
 import { router } from "expo-router";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Alert,
   ImageBackground,
@@ -16,6 +16,19 @@ export default function SignIn() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState(false);
+  const [checkingAuth, setCheckingAuth] = useState(true);
+  const isAuthenticated = false; 
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.replace("/(tabs)/Badges");
+    }
+    setCheckingAuth(false);
+  }, [isAuthenticated]);
+
+  if (checkingAuth && isAuthenticated) {
+    return null; // or a loading spinner
+  }
 
   const handleSignIn = async () => {
     if (!email || !password) {
@@ -72,6 +85,13 @@ export default function SignIn() {
         >
           <Text style={styles.buttonText}>{loading ? "Signing In..." : "Sign In"}</Text>
         </TouchableOpacity>
+            {/* Create Account Button */}
+            <TouchableOpacity
+              style={[styles.button, { backgroundColor: '#fff', borderWidth: 1, borderColor: '#222', marginTop: 12 }]}
+              onPress={() => router.push('/(modals)/CreateAccount')}
+            >
+              <Text style={[styles.buttonText, { color: '#222' }]}>Create Account</Text>
+            </TouchableOpacity>
       </View>
     </ImageBackground>
   );
