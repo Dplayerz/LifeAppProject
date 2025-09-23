@@ -1,26 +1,33 @@
 import { INDEX } from '@/constants/animalIndex';
 import { useLocalSearchParams, useRouter } from 'expo-router';
+import { collection, doc, setDoc } from 'firebase/firestore';
 import React, { useState } from 'react';
 import {
-    Button,
-    FlatList,
-    Image,
-    KeyboardAvoidingView,
-    Platform,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View
+  Button,
+  FlatList,
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View
 } from 'react-native';
+import { useUser } from '../hooks/userContex';
+import { db } from '../src/firebase/firebaseConfig';
 
 const Review: React.FC = () => {
   const [shortDescription, setShortDescription] = useState('');
   const [review, setReview] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
-  const { uri } = useLocalSearchParams();
+  const { uri, latitude, longitude } = useLocalSearchParams();
+  const { uid } = useUser();
   const router = useRouter();
+  const [invalidChoice, setInvalidChoice] = useState(false);
+  // Only check validity, do not set state in render
+  const isValidChoice = React.useMemo(() => INDEX.some(c => c.id === shortDescription), [shortDescription]);
 
   // Only the IDs for suggestions
   const suggestionIds = INDEX.map(c => c.id);
@@ -40,14 +47,39 @@ const Review: React.FC = () => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    if (!isValidChoice) {
+      setInvalidChoice(true);
+      return;
+    }
+    setInvalidChoice(false);
     setSubmitted(true);
 
     // Look up full Choice by ID
     const selectedChoice = INDEX.find(c => c.id === shortDescription);
     console.log('Selected Choice:', selectedChoice);
 
-    // Here you can upload the picture to selectedChoice.destination
+    // Upload photo metadata to Firestore
+    if (uri && uid && latitude && longitude) {
+      try {
+        const photoDoc = doc(collection(db, 'photos'));
+        await setDoc(photoDoc, {
+          userId: uid,
+          imageUrl: typeof uri === 'string' ? uri : uri[0],
+          latitude: Number(latitude),
+          longitude: Number(longitude),
+          createdAt: new Date().toISOString(),
+          description: review,
+          shortDescription,
+        });
+        console.log('Photo saved to Firestore!');
+        router.back();
+      } catch (err) {
+        console.error('Error saving photo:', err);
+      }
+    } else {
+      console.warn('Missing uri, uid, latitude, or longitude');
+    }
   };
 
   return (
@@ -111,10 +143,13 @@ const Review: React.FC = () => {
       <Button
         title="Submit"
         onPress={handleSubmit}
-        disabled={!shortDescription.trim() && !review.trim()}
+        disabled={!isValidChoice || (!shortDescription.trim() && !review.trim())}
       />
-
-      {submitted && <Text style={styles.thankYou}>Thank you for your review!</Text>}
+      {invalidChoice && (
+        <Text style={{ color: 'red', marginTop: 8, textAlign: 'center' }}>
+          Please select a valid choice from the list.
+        </Text>
+      )}
     </KeyboardAvoidingView>
   );
 };
@@ -169,12 +204,6 @@ const styles = StyleSheet.create({
     borderBottomColor: '#eee',
     borderBottomWidth: 1,
     backgroundColor: '#fff',
-  },
-  thankYou: {
-    marginTop: 16,
-    color: 'green',
-    fontSize: 16,
-    textAlign: 'center',
   },
   photo: {
     width: 300,

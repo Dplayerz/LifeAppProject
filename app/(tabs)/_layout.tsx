@@ -30,12 +30,11 @@ export default function TabLayout() {
           }),
         }}
       >
-
         <Tabs.Screen
-          name="parameters"
+          name="surplus"
           options={{
-            title: 'Parameters',
-            tabBarIcon: ({ color }) => <IconSymbol size={28} name="gear" color={color} />,
+            title: 'Map',
+            tabBarIcon: ({ color }) => <IconSymbol size={28} name="map.fill" color={color} />,
           }}
         />
         <Tabs.Screen
@@ -56,7 +55,14 @@ export default function TabLayout() {
           name="explore"
           options={{
             title: 'explore',
-            tabBarIcon: ({ color }) => <IconSymbol size={28} name="map.fill" color={color} />,
+            tabBarIcon: ({ color }) => <IconSymbol size={28} name="bookmark.fill" color={color} />,
+          }}
+        />
+        <Tabs.Screen
+          name="parameters"
+          options={{
+            title: 'Parameters',
+            tabBarIcon: ({ color }) => <IconSymbol size={28} name="gear" color={color} />,
           }}
         />
       </Tabs>

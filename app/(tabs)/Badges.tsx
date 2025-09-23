@@ -1,11 +1,9 @@
-import { useNavigation } from 'expo-router';
 import { getAuth } from 'firebase/auth';
 import { doc, onSnapshot } from 'firebase/firestore';
 import React, { useEffect, useRef, useState } from 'react';
-import { Animated, Dimensions, Easing, Image, NativeScrollEvent, NativeSyntheticEvent, Text, TouchableOpacity, View } from 'react-native';
+import { Animated, Dimensions, Easing, Image, Text, TouchableOpacity, View } from 'react-native';
 import { BadgeTemplate, badgesSet1, badgesSet2, badgesSet3 } from '../../components/badgesTemplate';
 import { db } from '../../src/firebase/firebaseConfig';
-import { useNavVisibility } from '../navBarContex';
 
 const badgeSets = [badgesSet1, badgesSet2, badgesSet3];
 
@@ -18,12 +16,24 @@ export default function Badges() {
   const [userProgress, setUserProgress] = useState<{ [title: string]: number }>({});
   const [unverifiedData, setUnverifiedData] = useState<{ [title: string]: number }>({});
   const cardAnim = useRef(new Animated.Value(0)).current;
-  const navigation = useNavigation();
   const windowWidth = Dimensions.get('window').width;
-  const lastOffset = useRef(0);
-  const scrollingDown = useRef(false);
   const scrollY = useRef(new Animated.Value(0)).current;
-  const { setVisible } = useNavVisibility();
+
+  const slideAnim = useRef(new Animated.Value(0)).current;
+  const prevSet = useRef(0);
+
+  useEffect(() => {
+  if (prevSet.current !== currentSet) {
+    slideAnim.setValue(prevSet.current < currentSet ? 400 : -400); // Start off-screen
+    Animated.timing(slideAnim, {
+      toValue: 0,
+      duration: 350,
+      easing: Easing.out(Easing.cubic),
+      useNativeDriver: true,
+    }).start();
+    prevSet.current = currentSet;
+  }
+}, [currentSet]);
 
   // ---------------- Fetch user progress ----------------
   useEffect(() => {
@@ -49,21 +59,7 @@ export default function Badges() {
     [{ nativeEvent: { contentOffset: { y: scrollY } } }],
     {
       useNativeDriver: false,
-      listener: (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-        const currentOffset = event.nativeEvent.contentOffset.y;
-        if (currentOffset <= 0) {
-          navigation.setOptions({ tabBarStyle: undefined });
-          scrollingDown.current = false;
-          setVisible(true);
-        } else {
-          if (!scrollingDown.current) {
-            navigation.setOptions({ tabBarStyle: { display: 'none' } });
-            scrollingDown.current = true;
-            setVisible(false);
-          }
-        }
-        lastOffset.current = currentOffset;
-      },
+      // Removed navbar hide/show logic
     }
   );
 
@@ -147,6 +143,7 @@ export default function Badges() {
                 ? cardAnim.interpolate({ inputRange: [0, 1], outputRange: [600, Dimensions.get('window').height * CARD_EXPANDED_HEIGHT] })
                 : 'auto',
               overflow: 'hidden',
+              transform: [{ translateX: slideAnim }]
             }}
           >
             {!expanded ? (

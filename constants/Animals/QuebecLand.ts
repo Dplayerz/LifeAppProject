@@ -20,7 +20,7 @@ export const QuebecLand: Choice[] = [
   { id: "muskrat", label: "muskrat", destination: "Quebec/Land" },
   { id: "marten", label: "marten", destination: "Quebec/Land" },
   { id: "mink", label: "mink", destination: "Quebec/Land" },
-  { id: "moose", label: "moose", destination: "Quebec/Land" },
+  { id: "beetle", label: "beetle", destination: "Quebec/Land" },
   { id: "caribou", label: "caribou", destination: "Quebec/Land" },
   { id: "snowshoe hare", label: "snowshoe hare", destination: "Quebec/Land" },
 ]

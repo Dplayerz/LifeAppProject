@@ -1,8 +1,11 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Camera, CameraType, CameraView } from 'expo-camera';
+import * as Location from 'expo-location';
+import * as MediaLibrary from 'expo-media-library';
 import { router, useFocusEffect, useNavigation } from 'expo-router';
 import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
 
 export default function CameraScreen() {
   const cameraRef = useRef(null);
@@ -11,6 +14,7 @@ export default function CameraScreen() {
   const [flash, setFlash] = useState<'on' | 'off'>('off');
   const navigation = useNavigation();
   const [isCameraOpen, setIsCameraOpen] = useState(true);
+
 
   useFocusEffect(
     React.useCallback(() => {
@@ -25,6 +29,16 @@ export default function CameraScreen() {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
       setHasPermission(status === 'granted');
+      // Request media library permissions
+      const mediaStatus = await MediaLibrary.requestPermissionsAsync();
+      if (mediaStatus.status !== 'granted') {
+        alert('Media Library permission is required to save and access photos.');
+      }
+      // Request location permissions
+      const locationStatus = await Location.requestForegroundPermissionsAsync();
+      if (locationStatus.status !== 'granted') {
+        alert('Location permission is required to save location with photos.');
+      }
     })();
   }, []);
 
@@ -68,9 +82,11 @@ export default function CameraScreen() {
             if (cameraRef.current) {
               // @ts-ignore
               const photo = await cameraRef.current.takePictureAsync();
-              console.log(photo.uri);
-              // After taking the photo
-              router.push({ pathname: '/Review', params: { uri: photo.uri } });
+              // Get device location
+              const location = await Location.getCurrentPositionAsync({});
+              console.log('Photo URI:', photo.uri);
+              console.log('Device location:', location.coords); // latitude, longitude
+              router.push({ pathname: '/Review', params: { latitude: location.coords.latitude, longitude: location.coords.longitude, uri: photo.uri } });
               // Close camera after taking picture
               navigation.goBack();
             }
