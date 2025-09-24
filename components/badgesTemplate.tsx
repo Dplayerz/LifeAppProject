@@ -1,13 +1,6 @@
 import React from 'react';
 import { GestureResponderEvent, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-// Firebase imports and addBadge function
-
-
-
-
-
-
 
 
 export const badgesSet1 = [

@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
+import Slider from '@react-native-community/slider';
 import { Camera, CameraType, CameraView } from 'expo-camera';
 import * as Location from 'expo-location';
 import * as MediaLibrary from 'expo-media-library';
@@ -13,7 +14,8 @@ export default function CameraScreen() {
   const [type, setType] = useState<CameraType>('back');
   const [flash, setFlash] = useState<'on' | 'off'>('off');
   const navigation = useNavigation();
-  const [isCameraOpen, setIsCameraOpen] = useState(true);
+  const [zoom, setZoom] = useState(0); 
+
 
 
   useFocusEffect(
@@ -57,6 +59,7 @@ export default function CameraScreen() {
         facing={type}
         flash={flash}
         ratio="16:9"
+        zoom={zoom}
       />
       {/* Controls are absolutely positioned over CameraView */}
       <TouchableOpacity
@@ -75,6 +78,16 @@ export default function CameraScreen() {
           </TouchableOpacity>
         </View>
       </View>
+      <View style={{ position: 'absolute', bottom: 120, left: 30, right: 30 }}>
+          <Slider
+              minimumValue={0}
+              maximumValue={1}
+              value={zoom}
+              onValueChange={setZoom}
+              minimumTrackTintColor="#fff"
+              maximumTrackTintColor="#888"
+               />
+</View>
       <View style={styles.bottomControls}>
         <View style={{ width: 50 }} />
         <TouchableOpacity style={styles.shutterButton}

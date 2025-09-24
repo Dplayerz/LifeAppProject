@@ -1,10 +1,7 @@
 import * as Location from 'expo-location';
 import React, { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
-import HeaderSearchBar from 'react-native-header-search-bar';
+import { StyleSheet, Text, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-
-
 
 // Example: photos array from your database
 const photos = [
@@ -12,6 +9,8 @@ const photos = [
   { uri: '...', latitude: 46.8139, longitude: -71.2080 },
   // ...more photos
 ];
+
+const HEADER_HEIGHT = 130; // Adjust as needed
 
 export default function SurplusMapScreen() {
   const [region, setRegion] = useState<{
@@ -39,25 +38,17 @@ export default function SurplusMapScreen() {
   }, []);
 
   return (
-    <View style={{ flex: 1 }}>
-      <View style={{ width: '100%', paddingVertical: 32, backgroundColor: '#fff', borderBottomWidth: 1, borderBottomColor: '#eee', alignItems: 'center' }}>
-        <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#222' }}>Surplus Map</Text>
+    <View style={{ flex: 1, backgroundColor: '#fff' }}>
+      <View style={styles.header}>
+        <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#222', marginTop:16, marginLeft: 24 }}>No filter</Text>
         <View style={{ marginTop: 16, width: '90%' }}>
-          <HeaderSearchBar
-            placeholder="Search Surplus..."
-            onChangeText={(text: string) => {
-              // Handle search text change
-            }}
-            onSearch={(text: string) => {
-              // Handle search action
-            }}
-          />
+          {/* Add search or other header content here */}
         </View>
       </View>
       <View style={{ flex: 1 }}>
         {region ? (
           <MapView
-            style={{ flex: 1 }}
+            style={styles.map}
             region={region}
             showsUserLocation={true}
           >
@@ -79,3 +70,21 @@ export default function SurplusMapScreen() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  header: {
+    width: '100%',
+    paddingVertical: 32,
+    backgroundColor: '#fff',
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
+    borderBottomLeftRadius: 32,
+    borderBottomRightRadius: 32,
+    height: HEADER_HEIGHT,
+    zIndex: 2,
+  },
+  map: {
+    flex: 1,
+    marginTop: -HEADER_HEIGHT / 2, // Slight overlap for rounded corners
+  },
+});
