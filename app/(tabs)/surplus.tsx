@@ -1,7 +1,10 @@
 import * as Location from 'expo-location';
 import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
+import HeaderSearchBar from 'react-native-header-search-bar';
 import MapView, { Marker } from 'react-native-maps';
+
+
 
 // Example: photos array from your database
 const photos = [
@@ -37,6 +40,21 @@ export default function SurplusMapScreen() {
 
   return (
     <View style={{ flex: 1 }}>
+      <View style={{ width: '100%', paddingVertical: 32, backgroundColor: '#fff', borderBottomWidth: 1, borderBottomColor: '#eee', alignItems: 'center' }}>
+        <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#222' }}>Surplus Map</Text>
+        <View style={{ marginTop: 16, width: '90%' }}>
+          <HeaderSearchBar
+            placeholder="Search Surplus..."
+            onChangeText={(text: string) => {
+              // Handle search text change
+            }}
+            onSearch={(text: string) => {
+              // Handle search action
+            }}
+          />
+        </View>
+      </View>
+      <View style={{ flex: 1 }}>
         {region ? (
           <MapView
             style={{ flex: 1 }}
@@ -57,6 +75,7 @@ export default function SurplusMapScreen() {
             <Text>Loading map...</Text>
           </View>
         )}
+      </View>
     </View>
   );
 }
