@@ -6,13 +6,15 @@ import {
   Button,
   FlatList,
   Image,
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  View
+  TouchableWithoutFeedback,
+  View,
 } from 'react-native';
 import { useUser } from '../hooks/userContex';
 import { db } from '../src/firebase/firebaseConfig';
@@ -83,6 +85,12 @@ const Review: React.FC = () => {
   };
 
   return (
+    <TouchableWithoutFeedback onPress={() => {
+      // Dismiss keyboard when tapping outside
+      Keyboard.dismiss();
+      setFilteredSuggestions([]);
+    }} accessible={false}>
+
     <KeyboardAvoidingView
       style={styles.container}
       behavior={Platform.select({ ios: 'padding', android: undefined })}
@@ -151,6 +159,7 @@ const Review: React.FC = () => {
         </Text>
       )}
     </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   );
 };
 

@@ -1,34 +1,29 @@
+import ExperienceBar from '@/components/UserProfileComp/experienceBar';
+import Stats from '@/components/UserProfileComp/stats';
 import React from 'react';
 import { Animated, StyleSheet, TouchableOpacity } from 'react-native';
+
 
 const ParametersScreen: React.FC = () => {
     const slideAnim = React.useRef(new Animated.Value(0)).current;
 
     return (
-        <Animated.View style={[styles.overlay, { transform: [{ translateX: slideAnim }] }]}> 
-            <Animated.Text style={{ color: '#222', fontSize: 34, fontWeight: 'bold', margin: 24 }}>
-                Settings
-            </Animated.Text>
+        <Animated.View style={[styles.overlay, { transform: [{ translateX: slideAnim }] }]}>
+            
+            {/* Round profile picture under "Profile" */}
+            <Animated.View style={{ alignItems: 'center', marginBottom: 24, paddingTop: 32 }}>
+                <Animated.Image
+                    source={{ uri: 'https://randomuser.me/api/portraits/lego/1.jpg' }}
+                    style={{ width: 146, height: 146, borderRadius: 68, backgroundColor: '#ccc' }}
+                />
+            </Animated.View>
+            {/* Stats component */}
+            <ExperienceBar level={5} currentExp={120} expToNextLevel={200} />
+            <Stats />
+            {/* Settings options */}
             <Animated.View style={{ marginHorizontal: 24 }}>
                 {/* Rectangle buttons stacked vertically */}
                 <Animated.View style={{ marginBottom: 16 }}>
-                    {/* Account Settings - bigger, with round photo */}
-                                <TouchableOpacity
-                                    style={{ backgroundColor: '#eee', borderRadius: 16, padding: 12, marginBottom: 4 }}
-                                    activeOpacity={0.7}
-                                    onPress={() => {/* handle Account Settings press */}}
-                                >
-                        <Animated.View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Animated.Image
-                                source={{ uri: 'https://randomuser.me/api/portraits/men/1.jpg' }}
-                                style={{ width: 64, height: 64, borderRadius: 32, marginRight: 18, backgroundColor: '#ccc' }}
-                            />
-                            <Animated.Text style={{ color: '#333', fontSize: 22, fontWeight: 'bold' }}>Account Settings</Animated.Text>
-                        </Animated.View>
-                        <Animated.Text style={{ color: '#666', fontSize: 14, marginTop: 0, marginLeft: 82 }}>
-                            View account
-                        </Animated.Text>
-                                </TouchableOpacity>
                     {/* Other buttons */}
                     <TouchableOpacity
                         style={{ backgroundColor: '#eee', borderRadius: 12, padding: 12, marginBottom: 12, alignItems: 'center' }}

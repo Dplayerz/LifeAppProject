@@ -38,6 +38,10 @@ export default function RootLayout() {
           name="(modals)/CreateAccount"
           options={{ headerShown: false, presentation: 'modal' }}
         />
+        <Stack.Screen
+          name="(modals)/badgesRoutes/Quebec"
+          options={{ headerShown: false, presentation: 'modal' }}
+        />
       </Stack>
       <StatusBar style="dark" />
     </ThemeProvider>

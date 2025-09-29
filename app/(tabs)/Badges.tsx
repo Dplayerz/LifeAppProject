@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import { getAuth } from 'firebase/auth';
 import { doc, onSnapshot } from 'firebase/firestore';
 import React, { useEffect, useRef, useState } from 'react';
@@ -117,13 +118,13 @@ export default function Badges() {
           style={{ width: windowWidth, height: '140%' }}
           resizeMode="cover"
         />
+
       </Animated.View>
 
       <Animated.ScrollView
         style={{ flex: 1, zIndex: 1 }}
         contentContainerStyle={{ paddingTop: 500, paddingBottom: 40 }}
         showsVerticalScrollIndicator={false}
-        onScroll={handleScroll}
         scrollEventThrottle={16}
       >
         <View style={{ backgroundColor: '#fff', borderTopLeftRadius: 32, borderTopRightRadius: 32, minHeight: 200, paddingTop: 10, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.12, shadowRadius: 12, elevation: 8, marginTop: -40 }}>
@@ -156,36 +157,14 @@ export default function Badges() {
                     title={badge.title}
                     current={badge.current}
                     total={badge.total}
-          unverified={badge.unverified}
+                    unverified={badge.unverified}
+                    path={badge.path}
                     onPress={() => {
-                      setSelectedBadge({ image: badge.image, title: badge.title, progress: badge.total > 0 ? badge.current / badge.total : 0 });
-                      setExpanded(true);
-                      Animated.timing(cardAnim, {
-                        toValue: 1,
-                        duration: 400,
-                        easing: Easing.out(Easing.cubic),
-                        useNativeDriver: false,
-                      }).start();
+                      router.push({ pathname: badge.path as any });
                     }}
                   />
                 ))
-            ) : (
-              <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', minHeight: 300 }}>
-                <Text style={{ fontSize: 22, fontWeight: 'bold', marginBottom: 16 }}>{selectedBadge?.title} Details</Text>
-                <Text style={{ fontSize: 16, color: '#666', textAlign: 'center' }}>Here you can add more info, actions, or content for the selected badge.</Text>
-                <TouchableOpacity
-                  style={{ marginTop: 32, padding: 12, borderRadius: 8, backgroundColor: '#eee' }}
-                  onPress={() => {
-                    Animated.timing(cardAnim, { toValue: 0, duration: 350, easing: Easing.out(Easing.cubic), useNativeDriver: false }).start(() => {
-                      setExpanded(false);
-                      setSelectedBadge(null);
-                    });
-                  }}
-                >
-                  <Text style={{ fontWeight: 'bold', color: '#333' }}>Close</Text>
-                </TouchableOpacity>
-              </View>
-            )}
+            ) : null}
           </Animated.View>
         </View>
       </Animated.ScrollView>

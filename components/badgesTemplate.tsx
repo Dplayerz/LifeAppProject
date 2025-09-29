@@ -10,6 +10,7 @@ export const badgesSet1 = [
  current: 0,
  unverified: 0,
  total: 10,
+ path: "/(modals)/Explorer"
  },
  {
  image: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80',
@@ -17,6 +18,7 @@ export const badgesSet1 = [
  current: 0,
  unverified: 0,
  total: 7,
+ path: "/(modals)/Achiever"
  },
  {
  image: 'https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=800&q=80',
@@ -24,6 +26,7 @@ export const badgesSet1 = [
  current: 1,
  unverified: 3,
  total: 15,
+ path: "/(modals)/Trailblazer"
  },
  {
  image: 'https://images.unsplash.com/photo-1465101178521-c1a9136a3b41?auto=format&fit=crop&w=800&q=80',
@@ -31,6 +34,7 @@ export const badgesSet1 = [
  current: 0,
  unverified: 0,
  total: 5,
+ path: "/(modals)/Pathfinder"
  },
  {
  image: require('../assets/BadgesAssets/QuebecBadge2.jpg'),
@@ -38,6 +42,7 @@ export const badgesSet1 = [
  current: 0,
  unverified: 0,
  total: 20,
+ path: "/(modals)/badgesRoutes/Quebec"
  },
 ];
 
@@ -48,34 +53,39 @@ export const badgesSet2 = [
  current: 0,
   unverified: 0,
  total: 8,
+ path: "/(modals)/Veteran"
  },
  {
  image: 'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80',
  title: 'Innovator',
  current: 0,
  total: 14,
-  unverified: 0,
+ unverified: 0,
+ path: "/(modals)/Innovator"
  },
  {
  image: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80',
  title: 'Pioneer',
  current: 0,
  total: 20,
-  unverified: 0,
+ unverified: 0,
+ path: "/(modals)/Pioneer"
  },
  {
  image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
  title: 'Navigator',
  current: 0,
  total: 6,
-  unverified: 0,
+ unverified: 0,
+ path: "/(modals)/Navigator"
  },
  {
  image: 'https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=800&q=80',
  title: 'Adventurer',
  current: 0,
  total: 11,
-  unverified: 0,
+ unverified: 0,
+ path: "/(modals)/Adventurer"
  },
 ];
 
@@ -85,7 +95,8 @@ export const badgesSet3 = [
  title: 'Mentor',
  current: 0,
  total: 9,
-  unverified: 0,
+ unverified: 0,
+ path: "/(modals)/Mentor"
  },
  {
  image: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80',
@@ -93,6 +104,7 @@ export const badgesSet3 = [
  current: 0,
  total: 13,
  unverified: 0,
+ path: "/(modals)/Guide"
  },
  {
  image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
@@ -100,6 +112,7 @@ export const badgesSet3 = [
  current: 0,
  total: 17,
  unverified: 0,
+ path: "/(modals)/Instructor"
  },
  {
  image: 'https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=800&q=80',
@@ -107,6 +120,7 @@ export const badgesSet3 = [
  current: 0,
  total: 6,
  unverified: 0,
+ path: "/(modals)/Coach"
  },
  {
  image: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80',
@@ -114,6 +128,7 @@ export const badgesSet3 = [
  current: 0,
  total: 19,
  unverified: 0,
+ path: "/(modals)/Advisor"
  },
 ];
 
@@ -124,6 +139,7 @@ type BadgeTemplateProps = {
  current: number; // confirmed progress value
  unverified: number; // unverified progress value
  total: number; // total divisions for the progress bar
+ path: string; // path to navigate to on press
 	onPress?: (event: GestureResponderEvent) => void;
 };
 
