@@ -1,7 +1,6 @@
 import { HapticTab } from '@/components/HapticTab';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { Tabs, router } from 'expo-router';
 import React from 'react';
@@ -20,13 +19,14 @@ export default function TabLayout() {
       <Tabs
         initialRouteName="explore"
         screenOptions={{
-          tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+          tabBarActiveTintColor: "black",
+          tabBarInactiveTintColor: "grey",
           headerShown: false,
           tabBarButton: HapticTab,
           tabBarBackground: TabBarBackground,
           tabBarStyle: Platform.select({
-            ios: { position: 'absolute' },
-            default: {},
+            ios: { position: 'absolute', backgroundColor: "white"},
+            default: {backgroundColor: "blue"},
           }),
         }}
       >
