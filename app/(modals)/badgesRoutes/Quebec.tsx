@@ -2,14 +2,14 @@ import React from 'react';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 const items = [
-    { label: 'Beaver', image: require('../../../assets/AnimalsBadges/BeaverQC.jpg') },
-    { label: 'Beaver', image: require('../../../assets/AnimalsBadges/GPTNoBGBeaver.png') },
-    { label: 'Beaver', image: require('../../../assets/AnimalsBadges/BeaverQC.jpg') },
-    { label: 'Beaver', image: require('../../../assets/AnimalsBadges/BeaverQC.jpg') },
-    { label: 'Beaver', image: require('../../../assets/AnimalsBadges/BeaverQC.jpg') },
-    { label: 'Beaver', image: require('../../../assets/AnimalsBadges/BeaverQC.jpg') },
-    { label: 'Beaver', image: require('../../../assets/AnimalsBadges/BeaverQC.jpg') },
-    { label: 'Beaver', image: require('../../../assets/AnimalsBadges/BeaverQC.jpg') },
+    { label: 'Beaver', image: require('../../../assets/AnimalsBadges/BeaverQC.jpg'), description: 'A symbol of Canadand impressive dam-building skills.' },
+    { label: 'Beaver', image: require('../../../assets/AnimalsBadges/GPTNoBGBeaver.png'), description: 'A symbol of Canada, the beaver is known for its industrious nature and impressive dam-building skills.' },
+    { label: 'Beaver', image: require('../../../assets/AnimalsBadges/BeaverQC.jpg'), description: 'A symbol of Canada, the beaver is known for its industrious nature and impressive dam-building skills.' },
+    { label: 'Beaver', image: require('../../../assets/AnimalsBadges/BeaverQC.jpg'), description: 'A symbol of Canada, the beaver is known for its industrious nature and impressive dam-building skills.' },
+    { label: 'Beaver', image: require('../../../assets/AnimalsBadges/BeaverQC.jpg'), description: 'A symbol of Canada, the beaver is known for its industrious nature and impressive dam-building skills.' },
+    { label: 'Beaver', image: require('../../../assets/AnimalsBadges/BeaverQC.jpg'), description: 'A symbol of Canada, the beaver is known for its industrious nature and impressive dam-building skills.' },
+    { label: 'Beaver', image: require('../../../assets/AnimalsBadges/BeaverQC.jpg'), description: 'A symbol of Canada, the beaver is known for its industrious nature and impressive dam-building skills.' },
+    { label: 'Beaver', image: require('../../../assets/AnimalsBadges/BeaverQC.jpg'), description: 'A symbol of Canada, the beaver is known for its industrious nature and impressive dam-building skills.' },
 ]
 
 const Quebec: React.FC = () => {
@@ -48,21 +48,33 @@ const Quebec: React.FC = () => {
                     <View key={idx} style={styles.gridItem}>
                         <Image
                             source={item.image}
-                            style={{ width: 82, height: 82, borderRadius: 64 }}
+                            style={{ width: 82, height: 82, borderRadius: 64, tintColor: 'black',  }}
                             resizeMode="cover"
 
                         />
-                         <View style={{
-                                height: 80,
-                                backgroundColor: '#bbb',
-                                borderRadius: 1,
-                                width: 1,
-                                margin: 12,
-                                     }} />
-                        <Text style={{ marginTop: 8, fontSize: 16, fontWeight: '600', color: '#333', marginLeft: 18 }}>{item.label}</Text>
-                    </View>
-                ))}
-            </View>
+                                            {/* Divider */}
+                        <View
+                            style={{
+                            height: 80,
+                            backgroundColor: '#bbb',
+                            width: 1,
+                            margin: 12,
+                            }}
+                        />
+
+                        {/* Text Column */}
+                        <View style={{ flexDirection: 'column', marginLeft: 18 }}>
+                            <Text style={{ fontSize: 16, fontWeight: '600', color: '#333' }}>
+                            {item.label}
+                            </Text>
+
+                            <Text style={{ marginTop: 4, fontSize: 12, fontWeight: '400', color: '#999', flexWrap: 'wrap', maxWidth: 250 }}>
+                            {item.description}
+                            </Text>
+                        </View>
+                        </View>
+                                    ))}
+                                </View>
         </ScrollView>
     );
 };
