@@ -2,14 +2,19 @@ import React from 'react';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 const items = [
-    { label: 'Beaver', image: require('../../../assets/AnimalsBadges/BeaverQC.jpg'), description: 'A symbol of Canadand impressive dam-building skills.' },
+    { label: 'Cat', image: require('../../../assets/AnimalsBadges/CatBadgeNOBG.png'), description: 'It thrives in both the province’s wild forests and cozy homes, embodying the rhythm of the seasons.' },
     { label: 'Beaver', image: require('../../../assets/AnimalsBadges/GPTNoBGBeaver.png'), description: 'A symbol of Canada, the beaver is known for its industrious nature and impressive dam-building skills.' },
-    { label: 'Beaver', image: require('../../../assets/AnimalsBadges/BeaverQC.jpg'), description: 'A symbol of Canada, the beaver is known for its industrious nature and impressive dam-building skills.' },
-    { label: 'Beaver', image: require('../../../assets/AnimalsBadges/BeaverQC.jpg'), description: 'A symbol of Canada, the beaver is known for its industrious nature and impressive dam-building skills.' },
-    { label: 'Beaver', image: require('../../../assets/AnimalsBadges/BeaverQC.jpg'), description: 'A symbol of Canada, the beaver is known for its industrious nature and impressive dam-building skills.' },
-    { label: 'Beaver', image: require('../../../assets/AnimalsBadges/BeaverQC.jpg'), description: 'A symbol of Canada, the beaver is known for its industrious nature and impressive dam-building skills.' },
-    { label: 'Beaver', image: require('../../../assets/AnimalsBadges/BeaverQC.jpg'), description: 'A symbol of Canada, the beaver is known for its industrious nature and impressive dam-building skills.' },
-    { label: 'Beaver', image: require('../../../assets/AnimalsBadges/BeaverQC.jpg'), description: 'A symbol of Canada, the beaver is known for its industrious nature and impressive dam-building skills.' },
+    { label: 'Dog', image: require('../../../assets/AnimalsBadges/DogBadgeNOBG.png'), description: 'A loyal companion, the dog is known for its friendly nature and strong bond with humans.' },
+    { label: 'Hare', image: require('../../../assets/AnimalsBadges/HareBadgeNOBG.png'), description: 'A symbol of Canada, the hare is known for its agility and quickness.' },
+    { label: 'Deer', image: require('../../../assets/AnimalsBadges/BeaverQC.jpg'), description: 'A symbol of Canada, the beaver is known for its industrious nature and impressive dam-building skills.' },
+    { label: 'Moose', image: require('../../../assets/AnimalsBadges/BeaverQC.jpg'), description: 'A symbol of Canada, the beaver is known for its industrious nature and impressive dam-building skills.' },
+    { label: 'Groundhog', image: require('../../../assets/AnimalsBadges/BeaverQC.jpg'), description: 'A symbol of Canada, the beaver is known for its industrious nature and impressive dam-building skills.' },
+    { label: 'Cow', image: require('../../../assets/AnimalsBadges/BeaverQC.jpg'), description: 'A symbol of Canada, the beaver is known for its industrious nature and impressive dam-building skills.' },
+    { label: 'Horse', image: require('../../../assets/AnimalsBadges/BeaverQC.jpg'), description: 'A symbol of Canada, the beaver is known for its industrious nature and impressive dam-building skills.' },
+    { label: 'Bullfrog', image: require('../../../assets/AnimalsBadges/BeaverQC.jpg'), description: 'A symbol of Canada, the beaver is known for its industrious nature and impressive dam-building skills.' },
+    { label: 'Goose', image: require('../../../assets/AnimalsBadges/BeaverQC.jpg'), description: 'A symbol of Canada, the beaver is known for its industrious nature and impressive dam-building skills.' },
+    { label: 'Duck', image: require('../../../assets/AnimalsBadges/BeaverQC.jpg'), description: 'A symbol of Canada, the beaver is known for its industrious nature and impressive dam-building skills.' },
+    { label: 'Blue Jay', image: require('../../../assets/AnimalsBadges/BeaverQC.jpg'), description: 'A symbol of Canada, the beaver is known for its industrious nature and impressive dam-building skills.' },
 ]
 
 const Quebec: React.FC = () => {
@@ -48,7 +53,7 @@ const Quebec: React.FC = () => {
                     <View key={idx} style={styles.gridItem}>
                         <Image
                             source={item.image}
-                            style={{ width: 82, height: 82, borderRadius: 64, tintColor: 'black',  }}
+                            style={{ width: 82, height: 82, borderRadius: 64}} //tint color here if needed
                             resizeMode="cover"
 
                         />
