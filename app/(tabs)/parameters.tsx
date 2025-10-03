@@ -1,4 +1,3 @@
-import XPReward from '@/components/animationComp/XPopup';
 import ExperienceBar from '@/components/UserProfileComp/experienceBar';
 import Stats from '@/components/UserProfileComp/stats';
 import { View } from 'moti';
@@ -7,12 +6,6 @@ import { Animated, StyleSheet, TouchableOpacity } from 'react-native';
 
 const ParametersScreen: React.FC = () => {
     const slideAnim = React.useRef(new Animated.Value(0)).current;
-    const [showXP, setShowXP] = React.useState(false);
-
-    const handleButtonClick = () => {
-        setShowXP(true);
-        setTimeout(() => setShowXP(false), 1500); // auto-hide after 1.5s
-    };
 
     return (
         <Animated.View style={[styles.overlay, { transform: [{ translateX: slideAnim }] }]}>
@@ -26,7 +19,6 @@ const ParametersScreen: React.FC = () => {
             {/* Stats component */}
             <ExperienceBar level={95} currentExp={120} expToNextLevel={200} />
             <View>
-            <XPReward show={showXP} amount={10}/>
             <Stats />
             </View>
             {/* Settings options */}
@@ -37,7 +29,7 @@ const ParametersScreen: React.FC = () => {
                     <TouchableOpacity
                         style={{ backgroundColor: '#eee', borderRadius: 12, padding: 12, marginBottom: 12, alignItems: 'center' }}
                         activeOpacity={0.7}
-                        onPress={handleButtonClick}
+                        onPress={() => {console.log("Account Pressed")}}
                         
                     >
                         <Animated.Text style={{ color: '#333', fontSize: 18 }}>Notifications</Animated.Text>

@@ -13,7 +13,6 @@ const CARD_EXPANDED_HEIGHT = 0.92; // percent of screen height
 export default function Badges() {
   const [currentSet, setCurrentSet] = useState(0);
   const [expanded, setExpanded] = useState(false);
-  const [selectedBadge, setSelectedBadge] = useState<null | { image: string; title: string; progress: number }>(null);
   const [userProgress, setUserProgress] = useState<{ [title: string]: number }>({});
   const [unverifiedData, setUnverifiedData] = useState<{ [title: string]: number }>({});
   const cardAnim = useRef(new Animated.Value(0)).current;

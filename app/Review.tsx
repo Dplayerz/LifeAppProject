@@ -73,6 +73,7 @@ const Review: React.FC = () => {
           createdAt: new Date().toISOString(),
           description: review,
           shortDescription,
+          status: 'pending', // for moderation
         });
         console.log('Photo saved to Firestore!');
         router.back();
